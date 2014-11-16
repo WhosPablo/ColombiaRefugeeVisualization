@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 <style>
 body{
 
 	margin-top: 0px;
+}
+.title{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 50pt;
+  text-align: center;
+  margin: 5px auto;
+}
+.sub{
+  font-size: 30pt;
 }
 .chart{
 	margin:0px 25px 0px 25px;
@@ -12,9 +23,15 @@ body{
   fill: #8A0707;
 }
 
-.chart text {
+.chart .stat {
   fill: black;
   font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.chart .year {
+  fill: white;
+  font: 14px sans-serif;
   text-anchor: middle;
 }
 
@@ -32,19 +49,21 @@ var width = $(window).width() - 50,
 
 var y = d3.scale.linear()
     //.range([height, 0]);
-    .range([0, height]);
+    .range([0, height-25]);
 
 
 var chart = d3.select(".chart")
     .attr("width", width)
     .attr("height", height);
 
+
+
 d3.json("data.json", function(data) {
-  console.log(data)
+
 
   y.domain([0, d3.max(data, function(d) { return d.population; })]);
 
-  var barWidth = width / data.length;
+  var barWidth = width / (data.length);
 
   var bar = chart.selectAll("g")
       .data(data)
@@ -56,14 +75,21 @@ d3.json("data.json", function(data) {
       .attr("height", function(d) { return  y(d.population) ; })
       .attr("width", barWidth - 1);
 
+
+
   bar.append("text")
+      .attr("class", "year")
+      .attr("x", barWidth / 2)
+      .attr("y", function(d) { return 5 ; })
+      .attr("dy", ".75em")
+      .text(function(d) { return d.year; });
+
+  bar.append("text")
+      .attr("class", "stat")
       .attr("x", barWidth / 2)
       .attr("y", function(d) { return y(d.population) ; })
       .attr("dy", ".75em")
-      .text(function(d) { 
-        console.log(d.population)
-        return d.population; });
-
+      .text(function(d) { return d.population; });
 });
 
 function type(d) {
@@ -72,3 +98,7 @@ function type(d) {
 }
 
 </script>
+
+
+<h1 class="title"> Colombian Refugees </h1>
+<h2 class="title sub"/>The Forgotten Problem</h2>
