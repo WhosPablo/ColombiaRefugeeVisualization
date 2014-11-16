@@ -27,7 +27,7 @@ while year != 2014:
 		if data[i]["asylum_seekers"] is not None:
 			info["asylum_seekers"] += int(data[i]["asylum_seekers"])
 	years[year]= info
-
+	print year
 	year+=1
 print years
 jsondata=json.dumps(years.values(), indent=4, separators=(',', ': '))
