@@ -4,7 +4,8 @@
 <style>
 body{
 
-	margin-top: 0px;
+	margin: 0px auto;
+
 }
 .title{
   font-family: 'Open Sans', sans-serif;
@@ -20,7 +21,7 @@ body{
 	margin:0px 25px 0px 25px;
 }
 .chart rect {
-  fill: #8A0707;
+  fill: #FFF;
 }
 
 .chart .stat {
@@ -29,74 +30,213 @@ body{
   text-anchor: middle;
 }
 
-.chart .year {
+ .year {
   fill: white;
   font: 14px sans-serif;
   text-anchor: middle;
 }
+.foo{
+fill: blue;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
 
+.x.axis path {
+  display: none;
+}
+.x.axis text{
+  fill: white;
+}
+
+.line {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+.area {
+    fill: #8A0707;
+    stroke-width: 0;
+}
 </style>
-<svg class="chart"></svg>
+<!-- <svg class="chart"></svg> -->
+<body>
+</body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
 
 
-var width = $(window).width() - 50,
-    height = 500;
+// var width = $(window).width() - 50,
+//     height = 500;
 
 
+
+// var y_real = d3.scale.linear()
+//     //.range([height, 0]);
+//     .range([0, height-25]);
+// var y_scale = d3.scale.linear()
+//     //.range([height, 0]);
+//     .range([0, height-25]);
+
+
+// var chart = d3.select(".chart")
+//     .attr("width", width)
+//     .attr("height", height);
+
+
+
+// d3.json("data.json", function(data) {
+
+
+//   y_real.domain([0, d3.max(data, function(d) { return d.total_population; })]);
+//   y_scale.domain([0, d3.max(data, function(d) { return (d.idps + d.asylum_seekers + d.refugees)/d.total_population; })]);
+
+//   var barWidth = width / (data.length * 2);
+
+//   var bar = chart.selectAll("g")
+//       .data(data)
+//     .enter().append("g")
+//       .attr("transform", function(d, i) { return "translate(" + i * 2 * barWidth + ",0)"; });
+
+
+//   bar.append("rect")
+//       .attr("y", "0")
+
+//       .attr("height", function(d) { return  y_real(d.idps) ; })
+//       .attr("width", barWidth - 1)
+//   bar.append("rect")
+//       .attr("y", "0")
+//         .attr("x", function(){ return width / (data.length * 2)})
+//       .attr("height", function(d) { return  y_real(d.total_population) ; })
+//       .attr("width", barWidth - 1)
+
+
+//   // bar.append("rect")
+//   //     .attr("class","foo")
+//   //     .attr("y", "0")
+//   //     .attr("height", function(d) { console.log(d);console.log((d.idps + d.asylum_seekers + d.refugees)/d.total_population); return  y_scale(((d.idps + d.asylum_seekers + d.refugees)/d.total_population)) ; })
+//   //     .attr("width", barWidth - 1);
+
+
+
+//   bar.append("text")
+//       .attr("class", "year")
+//       .attr("x", barWidth / 2)
+//       .attr("y", function(d) { return 5 ; })
+//       .attr("dy", ".75em")
+//       .text(function(d) { return d.year; })
+
+//   bar.append("text")
+//       .attr("class", "stat")
+//       .attr("x", barWidth / 2)
+//       .attr("y", function(d) { return y_real(d.total_population) ; })
+//       .attr("dy", ".75em")
+//       .text(function(d) { return (d.total_population); });
+// });
+
+var margin = {top: 0, right: 0, bottom: 30, left: 0},
+    width =  $(window).width() - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var parseDate = d3.time.format("%Y").parse;
+
+var x = d3.time.scale()
+    .range([0, width]);
 
 var y = d3.scale.linear()
-    //.range([height, 0]);
-    .range([0, height-25]);
+    .range([0, height]);
 
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
 
-var chart = d3.select(".chart")
-    .attr("width", width)
-    .attr("height", height);
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("right");
 
+var area = d3.svg.area()
+    .x(function(d) { return x(d.year); })
+    .y0(0)
+    .y1(function(d) { return y(d.total_population); });
 
+var line = d3.svg.line()
+    .x(function(d) { return x(d.year); })
+    .y(function(d) { return y(d.total_population); });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.json("data.json", function(data) {
 
+  data.forEach(function(d) {
 
-  y.domain([0, d3.max(data, function(d) { return d.population; })]);
+    d.year = parseDate(String(d.year));
 
-  var barWidth = width / (data.length);
+  });
 
-  var bar = chart.selectAll("g")
+  x.domain(d3.extent(data, function(d) { return d.year; }));
+  y.domain([0, d3.max(data, function(d) { return d.total_population; })]);
+
+
+  // svg.append("g")
+  //     .attr("class", "y axis")
+  //     .call(yAxis)
+
+    // .append("text")
+    //   .attr("transform", "rotate(-90)")
+    //   .attr("y", 6)
+    //   .attr("dy", ".71em")
+    //   .style("text-anchor", "end")
+    //   .text("Price ($)");
+
+  svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line);
+  svg.append("path")
+        .datum(data)
+        .attr("class", "area")
+        .attr("d", area);
+svg.selectAll("line") .data(data)
+    .enter().append("line")
+            .attr("x1", function(d){
+              return  x(d.year)})
+            .attr("x2", function(d){
+              return  x(d.year)})
+            .attr("y1", 20)
+            .attr("y2", function(d){
+              return  y(d.total_population)})
+            .attr("stroke-width", 1)
+            // .attr("stroke-dasharray", "15,15")
+            .attr("stroke", "white");
+  svg.selectAll("text")
       .data(data)
-    .enter().append("g")
-      .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
-
-  bar.append("rect")
-      .attr("y", "0")
-      .attr("height", function(d) { return  y(d.population) ; })
-      .attr("width", barWidth - 1);
-
-
-
-  bar.append("text")
+    .enter().append("text")
       .attr("class", "year")
-      .attr("x", barWidth / 2)
+      .attr("x",function(d){
+        var val = x(d.year) -20
+        // if( val == 0)
+        //   val += 17
+        // else if(val == $(window).width() )
+        //   val -= 17
+        return val} )
       .attr("y", function(d) { return 5 ; })
       .attr("dy", ".75em")
-      .text(function(d) { return d.year; });
+      .text(function(d) { return d.year.getFullYear(); })
+   // svg.append("g")
+   //    .attr("class", "x axis")
+   //    .attr("transform", "translate(0,0)")
+   //    .call(xAxis);
 
-  bar.append("text")
-      .attr("class", "stat")
-      .attr("x", barWidth / 2)
-      .attr("y", function(d) { return y(d.population) ; })
-      .attr("dy", ".75em")
-      .text(function(d) { return d.population; });
 });
-
-function type(d) {
-  d.value = +d.value; // coerce to number
-  return d;
-}
-
 </script>
 
 
