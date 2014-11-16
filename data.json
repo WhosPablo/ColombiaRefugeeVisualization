@@ -1,58 +1,114 @@
 [
     {
-        "population": 525000,
-        "year": 2000
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 720000,
-        "year": 2001
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 950000,
-        "year": 2002
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 1244072,
-        "year": 2003
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 2000000,
-        "year": 2004
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 2000000,
-        "year": 2005
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 3000000,
-        "year": 2006
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 3000000,
-        "year": 2007
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 3000000,
-        "year": 2008
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 3303979,
-        "year": 2009
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 3672054,
-        "year": 2010
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 3888309,
-        "year": 2011
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 3943509,
-        "year": 2012
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     },
     {
-        "population": 5368138,
-        "year": 2013
+        "total_population": 5781463,
+        "idps": 5368138,
+        "year": 2013,
+        "asylum_seekers": 16711,
+        "refugees": 396614,
+        "returned_refugees": 0
     }
 ]
